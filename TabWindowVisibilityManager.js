@@ -1,7 +1,8 @@
 /*
 TabWindowVisibilityManager
 
-@version: 	1.0
+@version: 	1.0.1
+@forked_version: 1.0
 @author:	Jonathan Marzullo
 @contact: 	jonathanfever@gmail.com
 
