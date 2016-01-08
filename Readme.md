@@ -20,6 +20,6 @@ $(window).TabWindowVisibilityManager({
 ```
 
 ## Install
-Download from the [project page](tatundkraft/TabWindowVisibilityManager).
+Download from the [project page](https://github.com/tatundkraft/TabWindowVisibilityManager).
 
 Install with [Bower](http://bower.io/): `bower install --save tatundkraft/TabWindowVisibilityManager`
