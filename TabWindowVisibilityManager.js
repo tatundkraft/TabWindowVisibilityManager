@@ -36,6 +36,21 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
+
+USAGE:
+// TabWindowVisibilityManager
+$(window).TabWindowVisibilityManager({
+    onFocusCallback: function(){
+
+           // tween resume() code goes here
+
+    },
+    onBlurCallback: function(){
+
+           // tween pause() code goes here
+
+    }
+});
 */
 
 ////////////////////////////////////////////
