@@ -1,0 +1,25 @@
+{
+  "name": "TabWindowVisibilityManager",
+  "version": "1.0",
+  "homepage": "https://github.com/tatundkraft/TabWindowVisibilityManager",
+  "authors": [
+    "Richard Radermacher <richard@tatundkraft.net>",
+    "Jonathan Marzullo <jonathanfever@gmail.com>"
+  ],
+  "description": "This plugin will listen when switching between browser tabs using the HTML5 Visibility API. And will also listen for browser window focus and blur events. Add your code to pause and resume when leaving and returning to your webpage.",
+  "main": "TabWindowVisibilityManager.js",
+  "keywords": [
+    "browser",
+    "tab",
+    "focus",
+    "blur"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
