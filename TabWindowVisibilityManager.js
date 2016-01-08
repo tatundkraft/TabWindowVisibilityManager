@@ -5,9 +5,9 @@ TabWindowVisibilityManager
 @author:	Jonathan Marzullo
 @contact: 	jonathanfever@gmail.com
 
-This plugin will listen when switching between browser tabs using the 
-HTML5 Visibility API. And will also listen for browser window focus 
-and blur events. Add your code to pause and resume when leaving and 
+This plugin will listen when switching between browser tabs using the
+HTML5 Visibility API. And will also listen for browser window focus
+and blur events. Add your code to pause and resume when leaving and
 returning to your webpage.
 
 In case you find this class useful (especially in commercial projects)
@@ -56,140 +56,103 @@ $(window).TabWindowVisibilityManager({
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 // TabWindowVisibilityManager
-;(function ($) {	
+;(function($) {
 
-// main visibility API function 
-// check if current tab is active or not
-var vis = (function(){
-		var stateKey, 
-			eventKey, 
-			keys = {
-				hidden: "visibilitychange",
-				webkitHidden: "webkitvisibilitychange",
-				mozHidden: "mozvisibilitychange",
-				msHidden: "msvisibilitychange"
-		};
-		for (stateKey in keys) {
-			if (stateKey in document) {
-					eventKey = keys[stateKey];
-					break;
-			}
-		}
-		return function(c) {
-			if (c) document.addEventListener(eventKey, c);
-			return !document[stateKey];
-		}
-})();
+    // main visibility API function
+    // check if current tab is active or not
+    var vis = (function() {
+        var stateKey,
+            eventKey,
+            keys = {
+                hidden: "visibilitychange",
+                webkitHidden: "webkitvisibilitychange",
+                mozHidden: "mozvisibilitychange",
+                msHidden: "msvisibilitychange"
+            };
+        for (stateKey in keys) {
+            if (stateKey in document) {
+                eventKey = keys[stateKey];
+                break;
+            }
+        }
+
+        return function(c) {
+            if (c) document.addEventListener(eventKey, c);
+            return !document[stateKey];
+        }
+    })();
 
 
-$.fn.TabWindowVisibilityManager = function (options) {	
-
-		// define defaults
+    $.fn.TabWindowVisibilityManager = function(options) {
+        // define defaults
         var defaults = {
-            onFocusCallback: function(){},
-            onBlurCallback: function(){}
+            onFocusCallback: function() {},
+            onBlurCallback: function() {}
         };
+        var o = $.extend(defaults, options);
+        var notIE = (document.documentMode === undefined),
+            isChromium = window.chrome;
 
-        var o = $.extend(defaults, options);	
-			
-		var notIE = (document.documentMode === undefined),
-			isChromium = window.chrome;	
-       
-	    this.each(function() {
-				
-			
-			/////////////////////////////////////////
-			// check if current tab is active or not
-			vis(function(){
-								
-				if(vis()){	
-					
-					  setTimeout(function(){ 
-					  
-						// tween resume() code goes here	
-						o.onFocusCallback();
-					  
-					},300);		
-															
-				} else {
-				
-					// tween pause() code goes here	
-					o.onBlurCallback();					
-				}
-			});
-			
-			
-			/////////////////////////////////////////
-			// check if browser window has focus
-			if (notIE && !isChromium) {
-			
-				// checks for Firefox and other  NON IE Chrome versions
-				$(window).on("focusin", function () { 
-					
-					setTimeout(function(){      
-						
-						// tween resume() code goes here
-						o.onFocusCallback();
-					  
-					},300);
-			
-				}).on("focusout", function () {
-			
-					// tween pause() code goes here
-					o.onBlurCallback();			
-				});
-			
-			} else {
-				
-				// checks for IE and Chromium versions
-				if (window.addEventListener) {
-			
-					// bind focus event
-					window.addEventListener("focus", function (event) {
-					  
-						setTimeout(function(){                 
-							 
-							 // tween resume() code goes here
-							 o.onFocusCallback();
-						  
-						},300);
-			
-					}, false);
-			
-					// bind blur event
-					window.addEventListener("blur", function (event) {
-			
-						// tween pause() code goes
-						o.onBlurCallback();
-			
-					}, false);
-			
-				} else {
-			
-					// bind focus event
-					window.attachEvent("focus", function (event) {
-			
-						setTimeout(function(){                 
-			
-							 // tween resume() code goes here
-							 o.onFocusCallback();
-						  
-						},300);
-			
-					});
-			
-					// bind focus event
-					window.attachEvent("blur", function (event) {
-			
-						// tween pause() code goes here
-						o.onBlurCallback();
-			
-					});
-				}
-			}
-		});
+        this.each(function() {
+            /////////////////////////////////////////
+            // check if current tab is active or not
+            vis(function() {
+                if (vis()) {
+                    setTimeout(function() {
+                        // tween resume() code goes here
+                        o.onFocusCallback();
+                    }, 300);
+                } else {
+                    // tween pause() code goes here
+                    o.onBlurCallback();
+                }
+            });
+            /////////////////////////////////////////
+            // check if browser window has focus
+            if (notIE && !isChromium) {
+                // checks for Firefox and other  NON IE Chrome versions
+                $(window).on("focusin", function() {
+                    setTimeout(function() {
+                        // tween resume() code goes here
+                        o.onFocusCallback();
+                    }, 300);
+                }).on("focusout", function() {
+                    // tween pause() code goes here
+                    o.onBlurCallback();
+                });
+            } else {
+                // checks for IE and Chromium versions
+                if (window.addEventListener) {
+                    // bind focus event
+                    window.addEventListener("focus", function(event) {
+                        setTimeout(function() {
+                            // tween resume() code goes here
+                            o.onFocusCallback();
+                        }, 300);
+                    }, false);
+                    // bind blur event
+                    window.addEventListener("blur", function(event) {
+                        // tween pause() code goes
+                        o.onBlurCallback();
+                    }, false);
+                } else {
+                    // bind focus event
+                    window.attachEvent("focus", function(event) {
+                        setTimeout(function() {
+                            // tween resume() code goes here
+                            o.onFocusCallback();
+                        }, 300);
+                    });
+                    // bind focus event
+                    window.attachEvent("blur", function(event) {
+                        // tween pause() code goes here
+                        o.onBlurCallback();
+                    });
+                }
+            }
+        });
         // end each
 
         return this;
-}
+    }
 })(jQuery);
